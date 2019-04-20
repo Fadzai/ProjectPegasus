@@ -157,9 +157,8 @@ contract Investment {
     //@withdraw called by the individual investors to either get refunds or withdraw their rentals
     function withdraw() public returns (bool) {
         if(investmentState == FAILED_DEADLINE_EXPIRED) || (investmentState == INVESTMENT_WITHDRAWN)
-        uint amount = investments[msg.sender];
+        uint amount = investments[msg.sender]/totalInvestmentMade * this.balance;
         if(amount > 0) { 
-            investments[msg.sender] = 0;
             //using send() returns a boolean, check to see if transfer is successful
             //send transfers and checks
             if (!msg.sender.send(amount)) {
